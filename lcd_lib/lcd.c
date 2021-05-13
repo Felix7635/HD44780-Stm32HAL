@@ -58,8 +58,11 @@ void Lcd_init(Lcd_HandleTypeDef * lcd)
 		lcd_write_command(lcd, FUNCTION_SET | OPT_DL | OPT_N);
 
 
-	lcd_write_command(lcd, CLEAR_DISPLAY);						// Clear screen
+	DELAY(1);
+	lcd_write_command(lcd, CLEAR_DISPLAY);
+	DELAY(1);// Clear screen
 	lcd_write_command(lcd, DISPLAY_ON_OFF_CONTROL | OPT_D);		// Lcd-on, cursor-off, no-blink
+	DELAY(1);
 	lcd_write_command(lcd, ENTRY_MODE_SET | OPT_INC);			// Increment cursor
 }
 
