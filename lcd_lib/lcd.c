@@ -17,6 +17,7 @@ static void lcd_write(Lcd_HandleTypeDef * lcd, uint8_t data, uint8_t len);
 
 /************************************** Function definitions **************************************/
 
+
 /**
  * Create new Lcd_HandleTypeDef and initialize the Lcd
  */
@@ -89,6 +90,17 @@ void Lcd_string(Lcd_HandleTypeDef * lcd, char * string)
 }
 
 /**
+ * Write a string on the current position with specified length
+ */
+void Lcd_string_length(Lcd_HandleTypeDef * lcd, char * string, uint8_t length)
+{
+	for(uint8_t i = 0; i < length; i++)
+	{
+		lcd_write_data(lcd, string[i]);
+	}
+}
+
+/**
  * Set the cursor position
  */
 void Lcd_cursor(Lcd_HandleTypeDef * lcd, uint8_t row, uint8_t col)
@@ -107,6 +119,7 @@ void Lcd_cursor(Lcd_HandleTypeDef * lcd, uint8_t row, uint8_t col)
  */
 void Lcd_clear(Lcd_HandleTypeDef * lcd) {
 	lcd_write_command(lcd, CLEAR_DISPLAY);
+	Lcd_cursor(lcd, 0, 0);
 }
 
 void Lcd_define_char(Lcd_HandleTypeDef * lcd, uint8_t code, uint8_t bitmap[]){
@@ -171,4 +184,11 @@ void lcd_write(Lcd_HandleTypeDef * lcd, uint8_t data, uint8_t len)
 	HAL_GPIO_WritePin(lcd->en_port, lcd->en_pin, 1);
 	DELAY(1);
 	HAL_GPIO_WritePin(lcd->en_port, lcd->en_pin, 0); 		// Data receive on falling edge
+}
+
+void lcd_clear_row(Lcd_HandleTypeDef *lcd, uint8_t row)
+{
+	Lcd_cursor(lcd, row, 0);
+	for(int i = 0; i < 20; i++)
+		Lcd_string_length(lcd, " ", 1); HAL_Delay(1);
 }

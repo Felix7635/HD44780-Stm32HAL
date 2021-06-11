@@ -86,6 +86,7 @@ typedef struct {
 void Lcd_init(Lcd_HandleTypeDef * lcd);
 void Lcd_int(Lcd_HandleTypeDef * lcd, int number);
 void Lcd_string(Lcd_HandleTypeDef * lcd, char * string);
+void Lcd_string_length(Lcd_HandleTypeDef * lcd, char * string, uint8_t length);
 void Lcd_cursor(Lcd_HandleTypeDef * lcd, uint8_t row, uint8_t col);
 Lcd_HandleTypeDef Lcd_create(
 		Lcd_PortType port[], Lcd_PinType pin[],
@@ -93,5 +94,6 @@ Lcd_HandleTypeDef Lcd_create(
 		Lcd_PortType en_port, Lcd_PinType en_pin, Lcd_ModeTypeDef mode);
 void Lcd_define_char(Lcd_HandleTypeDef * lcd, uint8_t code, uint8_t bitmap[]);
 void Lcd_clear(Lcd_HandleTypeDef * lcd);
+void lcd_clear_row(Lcd_HandleTypeDef *lcd, uint8_t row);
 
 #endif /* LCD_H_ */
